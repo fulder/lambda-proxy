@@ -1,0 +1,44 @@
+{
+  "name": "lambda-proxy",
+  "version": "0.0.1",
+  "description": "An HTTP proxy that invokes AWS Lambda functions.",
+  "main": "lib/lambda-proxy.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "digital-sailors/lambda-proxy",
+  "keywords": [
+    "http",
+    "proxy",
+    "aws",
+    "lambda",
+    "API",
+    "Gateway",
+    "nginx",
+    "apache",
+    "webserver",
+    "invoke",
+    "serverless",
+    "cloud"
+  ],
+  "author": {
+    "name": "DigitalSailors e.K.",
+    "email": "",
+    "url": "https://www.digital-sailors.de"
+  },
+  "homepage": "https://github.com/digital-sailors/lambda-proxy#readme",
+  "contributors": [
+    "Oliver Gutperl <oliver.gutperl@digital-sailors.de>"
+  ],
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/digital-sailors/lambda-proxy/issues"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "preferGlobal": true,
+  "dependencies": {
+    "aws-sdk": "^2.4.6"
+  }
+}
