@@ -37,8 +37,14 @@
   "directories": {
     "lib": "lib"
   },
+  "bin": {
+    "lambda-proxy": "./lib/lambda-proxy.js"
+  },
   "preferGlobal": true,
   "dependencies": {
     "aws-sdk": "^2.4.6"
+  },
+  "config" : {
+    "port" : "8080"
   }
 }
