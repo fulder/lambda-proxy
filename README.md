@@ -123,7 +123,7 @@ To avoid unneccessary repetition, it is recommended to move the `proxy_set_heade
 
 Note: If you use an additional `proxy_set_header`-directive inside a `location`-block, nginx discards all `proxy_set_header`-directives defined outside of the `location`-block, therefore you need to repeat all of them in this case.
 
-### Extended Nginx configuration
+### Extended Nginx configuration example
 This configuration leverages more of the nginx configuration directives and also changes the request method and sets a custom body.
 ```
 http {
@@ -143,6 +143,11 @@ http {
     proxy_set_header 'lambda-proxy-host' '$host';
 
     location /some/location {
+      set $lambdafunction 'lambda-proxy-echo';
+      proxy_pass http://lambda-proxy;
+    }
+
+    location /some/other/location {
       set $lambdafunction 'lambda-proxy-echo';
       set $lambdaqualifier 'PROD'; # the qualifier for the Lambda function, use an empty string '' for $LATEST (because $ can not get escaped in the nginx configuration)
       set $lambdaparameters '{"real_ip": "$realip_remote_addr"}';
