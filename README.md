@@ -3,6 +3,8 @@ A HTTP proxy that invokes AWS Lambda functions.
 
 Lambda Proxy makes it easy to invoke Lambda Functions directly from your webserver (Nginx, Apache, etc.)
 
+See the [Tutorial](/blob/master/TUTORIAL.md) for an end-to-end example.
+
 ## WORK IN PROGRESS
 This is work in progress at this time. Use in production environments at your own risk. Incompatible changes may be introduced. Comments, questions and contributions welcome.
 
