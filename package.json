@@ -1,6 +1,6 @@
 {
   "name": "lambda-proxy",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "An HTTP proxy that invokes AWS Lambda functions.",
   "main": "lib/lambda-proxy.js",
   "scripts": {
