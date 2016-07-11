@@ -94,6 +94,7 @@ The URL is taken directly from the request to the Lambda Proxy and does not need
 location /some/location/ {
   proxy_set_header 'lambda-proxy-region' 'eu-west-1';
   proxy_set_header 'lambda-proxy-function' 'lambda-proxy-echo';
+  proxy_set_header 'lambda-proxy-parameters' '';
   proxy_set_header 'lambda-proxy-scheme' '$scheme';
   proxy_set_header 'lambda-proxy-host' '$host';
   proxy_pass http://localhost:8080;
@@ -105,11 +106,11 @@ To avoid unneccessary repetition, it is recommended to move the `proxy_set_heade
 ```
   server {
     set $lambdaregion 'eu-west-1';
-    set $lambdaqualifier '';
 
     proxy_set_header 'lambda-proxy-region' '$lambdaregion';
     proxy_set_header 'lambda-proxy-qualifier' '$lambdaqualifier';
     proxy_set_header 'lambda-proxy-function' '$lambdafunction';
+    proxy_set_header 'lambda-proxy-parameters' '$lambdaparameters';
     proxy_set_header 'lambda-proxy-scheme' '$scheme';
     proxy_set_header 'lambda-proxy-host' '$host';
 
@@ -122,7 +123,8 @@ To avoid unneccessary repetition, it is recommended to move the `proxy_set_heade
 
 Note: If you use an additional `proxy_set_header`-directive inside a `location`-block, nginx discards all `proxy_set_header`-directives defined outside of the `location`-block, therefore you need to repeat all of them in this case.
 
-Extended Nginx configuration:
+### Extended Nginx configuration
+This configuration leverages more of the nginx configuration directives and also changes the request method and sets a custom body.
 ```
 http {
 
@@ -132,19 +134,20 @@ http {
 
   server {
     set $lambdaregion 'eu-west-1';
-    set $lambdaqualifier '';
 
     proxy_set_header 'lambda-proxy-region' '$lambdaregion';
     proxy_set_header 'lambda-proxy-qualifier' '$lambdaqualifier';
     proxy_set_header 'lambda-proxy-function' '$lambdafunction';
+    proxy_set_header 'lambda-proxy-parameters' '$lambdaparameters';
     proxy_set_header 'lambda-proxy-scheme' '$scheme';
     proxy_set_header 'lambda-proxy-host' '$host';
 
     location /some/location {
       set $lambdafunction 'lambda-proxy-echo';
       set $lambdaqualifier 'PROD'; # the qualifier for the Lambda function, use an empty string '' for $LATEST (because $ can not get escaped in the nginx configuration)
+      set $lambdaparameters '{"real_ip": "$realip_remote_addr"}';
       proxy_method POST; # switch the request to POST to send custom body
-      proxy_set_body '{ "some": "json", "real_ip": "$realip_remote_addr" }'; # set a custom JSON body with nginx variables
+      proxy_set_body '{ "some": "json" }'; # set a custom JSON body with nginx variables
       proxy_pass http://lambda-proxy;
     }
   }
@@ -178,7 +181,7 @@ The Lambda function is invoked with this data structure as the event.
 
 The value of *parameters* must be a valid JSON String.
 
-The difference between *headers*/*body* and *parameters* is that `headers` and `body` may contain unchecked content that a malicious client sent, whereas `parameters` represents content that was added by the server that invokes the Lambda function. In terms of responsibility, the Lambda function is responsible for securely parsing, sanitizing and handling `header` and `body` values. On the other hand the Lambda function can treat the value of `parameters` as having been scrutinized by the server that invokes the Lambda version. 
+The difference between *headers*/*body* and *parameters* is that `headers` and `body` may contain unchecked content that a malicious client sent, whereas `parameters` represents content that was added by the server that invokes the Lambda function. In terms of responsibility, the Lambda function is responsible for securely parsing, sanitizing and handling `header` and `body` values. On the other hand the Lambda function can treat the value of `parameters` as having been scrutinized by the server that invokes the Lambda version.
 
 When the *body* is a JSON-Document, you must parse it yourself:
 
