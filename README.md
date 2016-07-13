@@ -108,6 +108,8 @@ To avoid unneccessary repetition, it is recommended to move the `proxy_set_heade
 ```
   server {
     set $lambdaregion 'eu-west-1';
+    set $lambdaqualifier '';
+    set $lambdaparameters '';
 
     proxy_set_header 'lambda-proxy-region' '$lambdaregion';
     proxy_set_header 'lambda-proxy-qualifier' '$lambdaqualifier';
@@ -136,6 +138,8 @@ http {
 
   server {
     set $lambdaregion 'eu-west-1';
+    set $lambdaqualifier '';
+    set $lambdaparameters '';
 
     proxy_set_header 'lambda-proxy-region' '$lambdaregion';
     proxy_set_header 'lambda-proxy-qualifier' '$lambdaqualifier';
