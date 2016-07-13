@@ -72,10 +72,9 @@ const AWS = require('aws-sdk');
 
 exports.lambda = function(event, context, callback) {
   // parse parameters
-  const parameters = JSON.parse(event.parameters);
-  const senderEmail = parameters.senderEmail;
-  const SESRegion = parameters.SESRegion;
-  const recipientEmail = parameters.recipientEmail;
+  const senderEmail = event.parameters.senderEmail;
+  const SESRegion = event.parameters.SESRegion;
+  const recipientEmail = event.parameters.recipientEmail;
 
   // parse querystring from body
   const query = querystring.parse(event.body);
@@ -83,7 +82,7 @@ exports.lambda = function(event, context, callback) {
   const subject = query.subject;
   const message = query.message;
 
-  // assemble email
+  // send email
   var params = {
     Destination: {
       ToAddresses: [ recipientEmail ]
@@ -103,7 +102,6 @@ exports.lambda = function(event, context, callback) {
     Source: senderEmail
   };
 
-  // send email
   const ses = new AWS.SES({region: SESRegion});
   ses.sendEmail(params, function(error, data) {
     if (error) {
@@ -115,7 +113,6 @@ exports.lambda = function(event, context, callback) {
         headers: {'Content-Type': 'text/html; charset=utf-8'},
         body: '<html><head><title>Form submit successfull</title></head><body><h1>The form has been sent.</h1></body></html>',
       };
-      // send result
       callback(null, result);
     }
   });

@@ -15,7 +15,7 @@ The preferred way to install the Lambda Proxy is to use the
 into a terminal window:
 
 ```sh
-npm install -g lambda-proxy
+sudo npm install lambda-proxy -g
 ```
 
 ## Running
@@ -177,7 +177,10 @@ The Lambda function is invoked with this data structure as the event.
   host: 'STRING_VALUE', // the originally requested host
   url: 'STRING_VALUE', // the request url, starting with "/", eg. "/some/url?with=parameter&s=attached"
   httpVersion: '1.0 | ...',
-  parameters: 'JSON_STRING_VALUE',
+  parameters: {
+    'STRING_VALUE': value, // 'name': value
+    /* more parameters */
+  },
   headers: {
     'STRING_VALUE': 'STRING_VALUE', // 'headername': 'headervalue'
     /* more headers */
@@ -185,8 +188,6 @@ The Lambda function is invoked with this data structure as the event.
   body: 'STRING_VALUE'
 }
 ```
-
-The value of *parameters* must be a valid JSON String.
 
 The difference between *headers*/*body* and *parameters* is that `headers` and `body` may contain unchecked content that a malicious client sent, whereas `parameters` represents content that was added by the server that invokes the Lambda function. In terms of responsibility, the Lambda function is responsible for securely parsing, sanitizing and handling `header` and `body` values. On the other hand the Lambda function can treat the value of `parameters` as having been scrutinized by the server that invokes the Lambda version.
 

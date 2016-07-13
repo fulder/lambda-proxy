@@ -6,10 +6,9 @@ const AWS = require('aws-sdk');
 
 exports.lambda = function(event, context, callback) {
   // parse parameters
-  const parameters = JSON.parse(event.parameters);
-  const senderEmail = parameters.senderEmail;
-  const SESRegion = parameters.SESRegion;
-  const recipientEmail = parameters.recipientEmail;
+  const senderEmail = event.parameters.senderEmail;
+  const SESRegion = event.parameters.SESRegion;
+  const recipientEmail = event.parameters.recipientEmail;
 
   // parse querystring from body
   const query = querystring.parse(event.body);
