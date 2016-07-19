@@ -5,9 +5,6 @@ Lambda Proxy makes it easy to invoke Lambda Functions directly from your webserv
 
 See the [Tutorial](TUTORIAL.md) for an end-to-end example.
 
-## WORK IN PROGRESS
-This is work in progress at this time. Use in production environments at your own risk. Incompatible changes may be introduced. Comments, questions and contributions welcome.
-
 ## Installing
 
 The preferred way to install the Lambda Proxy is to use the
@@ -252,3 +249,5 @@ The Lambda Proxy let's you skip the step of defining an API in API Gateway. Inst
 
 ## Security
 The Lambda Proxy opens a configurable port. Whoever can send HTTP requests to this port can invoke all Lambda functions that can be invoked with the supplied AWS credentials. Therefore it is probably not a good idea to expose this port to the internet. By default, the Lambda Proxy listens on port `8080` on `localhost`.
+
+Since the `parameters`-object is trusted by the Lambda function to not contain malicious content, the header `lambda-proxy-parameters` MUST be set inside the webserver to something save or to an empty string. Leaving it unset allows a malicious client to provide this header and set an arbitrary value.
