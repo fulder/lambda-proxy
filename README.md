@@ -166,7 +166,7 @@ http {
 TBD
 
 ## Lambda Input/Output structure
-The Input/Output structure is defined in the HTTP-Lambda Gateway Protocol. (TBD)
+The Input/Output structure is defined in the [HTTP Function Protocol](https://github.com/digital-sailors/http-function-protocol).
 
 ### Input: Lambda Event
 The Lambda function is invoked with this data structure as the event.
