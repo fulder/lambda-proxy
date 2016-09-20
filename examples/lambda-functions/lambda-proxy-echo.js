@@ -5,7 +5,7 @@ exports.lambda = function(event, context, callback) {
   const result = {
     status: 200,
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({ event: event }, 2),
+    body: JSON.stringify({ event: event }),
   };
   callback(null, result);
 };
