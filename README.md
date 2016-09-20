@@ -1,7 +1,7 @@
 # lambda-proxy
 A HTTP proxy that invokes AWS Lambda functions.
 
-Lambda Proxy makes it easy to invoke Lambda Functions directly from your webserver (Nginx, Apache, etc.). It implements the [HTTP Function Protocol](https://github.com/digital-sailors/http-function-protocol)
+Lambda Proxy makes it easy to invoke Lambda Functions directly from your webserver (Nginx, Apache, etc.). It implements the [HTTP Function Protocol](https://github.com/digital-sailors/http-function-protocol).
 
 See the [Tutorial](TUTORIAL.md) for an end-to-end example.
 
