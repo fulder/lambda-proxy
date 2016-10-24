@@ -1,4 +1,7 @@
 # lambda-proxy
+
+__NOTE: A recent API Gateway update has improved the usage of Lambda functions from a web context considerably. Therefore this code is no longer maintained. We recommend switching to API Gateway to invoke Lambda functions from a web context.__
+
 A HTTP proxy that invokes AWS Lambda functions.
 
 Lambda Proxy makes it easy to invoke Lambda Functions directly from your webserver (Nginx, Apache, etc.). It implements the [HTTP Function Protocol](https://github.com/digital-sailors/http-function-protocol).
